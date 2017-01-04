@@ -1,15 +1,18 @@
 const connect = require('connect');
 const url = require('url');
 const qs = require('qs');
+const http = require('http');
+
 
 const app = connect();
 
-app.use(function query(req, res, next) {
-    console.log(url.parse(req.url));
+app.use((req, res, next) => {
+    var _query = url.parse(req.url).query;
+    req.query = _query ? qs.parse(_query, {allowDots: true, plainObjects: true}) : {};
     next();
 });
 
-app.use('/', function(req, res) {
+app.use('/', (req, res) => {
     res.end(JSON.stringify(req.query));
 });
 
