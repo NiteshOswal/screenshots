@@ -1,0 +1,27 @@
+{
+  "name": "screenshots",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NiteshOswal/screenshots.git"
+  },
+  "author": "Nitesh Oswal <nit.oswal@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NiteshOswal/screenshots/issues"
+  },
+  "homepage": "https://github.com/NiteshOswal/screenshots#readme",
+  "dependencies": {
+    "connect": "^3.5.0",
+    "is-url": "^1.2.2",
+    "md5": "^2.2.1",
+    "qs": "^6.3.0",
+    "serve-static": "^1.11.1",
+    "webshot": "^0.18.0"
+  }
+}
