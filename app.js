@@ -4,7 +4,12 @@ const qs = require('qs');
 const http = require('http');
 const path = require('path');
 const send = require('send');
+const fs = require('fs');
+const md5 = require('md5');
+const webshot = require('webshot');
+const async = require('async');
 
+const defaultImagePath = path.join(__dirname, "cache", "default.png");
 
 const app = connect();
 
@@ -15,8 +20,27 @@ app.use((req, res, next) => {
 });
 
 app.use('/', (req, res) => {
-    send(req, path.join(__dirname, "cache", "default.png"))
-        .pipe(res);
+    const _id = md5(req.query.url);
+    const imagePath = path.join(__dirname, "cache", _id + ".png");
+    async.waterfall([
+        (callback) => {
+            fs.stat(imagePath, (err, data) => {
+                if(err) {
+                    webshot(req.query.url, imagePath, (err) => {
+                        if(err) {
+                            callback(null, defaultImagePath)
+                        } else {
+                            callback(null, imagePath);
+                        }
+                    })
+                } else {
+                    callback(null, imagePath);
+                }
+            });
+        }
+    ], (err, result) => {
+        send(req, result).pipe(res);
+    });
 });
 
 http.createServer(app).listen(4000);
