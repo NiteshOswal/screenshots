@@ -8,6 +8,7 @@ const fs = require('fs');
 const md5 = require('md5');
 const webshot = require('webshot');
 const async = require('async');
+const isUrl = require('is-url');
 
 const defaultImagePath = path.join(__dirname, "cache", "default.png");
 
@@ -23,6 +24,13 @@ app.use('/', (req, res) => {
     const _id = md5(req.query.url);
     const imagePath = path.join(__dirname, "cache", _id + ".png");
     async.waterfall([
+        (callback) => {
+            if(!isUrl(req.query.url)) {
+                callback(true, defaultImagePath);
+            } else {
+                callback(null);
+            }
+        },
         (callback) => {
             fs.stat(imagePath, (err, data) => {
                 if(err) {
