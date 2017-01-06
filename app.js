@@ -21,11 +21,13 @@ app.use((req, res, next) => {
 });
 
 app.use('/', (req, res) => {
+    console.log(req.query.url);
     if(!req.query.url) {
         return send(req, defaultImagePath).pipe(res);
     }
     const _id = md5(req.query.url);
     const imagePath = path.join(__dirname, "cache", _id + ".png");
+    console.log(imagePath);
     async.waterfall([
         (callback) => {
             if(!isUrl(req.query.url)) {
@@ -39,7 +41,7 @@ app.use('/', (req, res) => {
                 if(err) {
                     webshot(req.query.url, imagePath, (err) => {
                         if(err) {
-                            callback(null, defaultImagePath)
+                            callback(err, defaultImagePath)
                         } else {
                             callback(null, imagePath);
                         }
@@ -50,6 +52,7 @@ app.use('/', (req, res) => {
             });
         }
     ], (err, result) => {
+        console.log("Final Response", err, result);
         send(req, result).pipe(res);
     });
 });
