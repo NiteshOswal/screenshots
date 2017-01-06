@@ -21,6 +21,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/', (req, res) => {
+    if(!req.query.url) {
+        send(req, defaultImagePath).pipe(res);
+    }
     const _id = md5(req.query.url);
     const imagePath = path.join(__dirname, "cache", _id + ".png");
     async.waterfall([
