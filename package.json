@@ -11,7 +11,7 @@
     "url": "git+https://github.com/NiteshOswal/screenshots.git"
   },
   "author": "Nitesh Oswal <nit.oswal@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/NiteshOswal/screenshots/issues"
   },
