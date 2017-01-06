@@ -39,7 +39,12 @@ app.use('/', (req, res) => {
         (callback) => {
             fs.stat(imagePath, (err, data) => {
                 if(err) {
-                    webshot(req.query.url, imagePath, (err) => {
+                    webshot(req.query.url, imagePath, {
+                        windowSize: {
+                            width: 512,
+                            height: 384
+                        }
+                    }, (err) => {
                         if(err) {
                             callback(err, defaultImagePath)
                         } else {
