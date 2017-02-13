@@ -27,7 +27,6 @@ app.use('/', (req, res) => {
     }
     const _id = md5(req.query.url);
     const imagePath = path.join(__dirname, "cache", _id + ".png");
-    console.log(imagePath);
     async.waterfall([
         (callback) => {
             if(!isUrl(req.query.url)) {
@@ -38,6 +37,10 @@ app.use('/', (req, res) => {
         },
         (callback) => {
             fs.stat(imagePath, (err, data) => {
+                if(!err && req.query.force) {
+                    fs.unlinkSync(imagePath);
+                    err = true;
+                }
                 if(err) {
                     webshot(req.query.url, imagePath, {
                         windowSize: {
