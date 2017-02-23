@@ -48,8 +48,7 @@ app.use('/', (req, res) => {
                             height: 384
                         },
                         siteType: 'url',
-                        renderDelay: 2000,
-                        timeout: 3000
+                        timeout: 20000
                     }, (err) => {
                         if(err) {
                             callback(err, defaultImagePath)
