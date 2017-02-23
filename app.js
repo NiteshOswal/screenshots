@@ -47,6 +47,8 @@ app.use('/', (req, res) => {
                             width: 512,
                             height: 384
                         },
+                        siteType: 'url',
+                        renderDelay: 2000,
                         timeout: 3000
                     }, (err) => {
                         if(err) {
