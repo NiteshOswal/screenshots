@@ -46,7 +46,8 @@ app.use('/', (req, res) => {
                         windowSize: {
                             width: 512,
                             height: 384
-                        }
+                        },
+                        timeout: 3000
                     }, (err) => {
                         if(err) {
                             callback(err, defaultImagePath)
