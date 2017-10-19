@@ -47,6 +47,9 @@ app.use('/', (req, res) => {
                             width: 512,
                             height: 384
                         },
+                        phantomConfig: {
+                            "ignore-ssl-errors": "true"
+                        },
                         siteType: 'url',
                         timeout: 20000
                     }, (err) => {
