@@ -1,8 +1,8 @@
 FROM node
 
-COPY package.json /screenshort/
-WORKDIR /screenshort
+COPY package.json /screenshots/
+WORKDIR /screenshots
 RUN npm install
 EXPOSE 4000
-COPY . /screenshort/
+COPY . /screenshots/
 CMD node app.js
